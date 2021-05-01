@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice with jQuery Events</title>
+    <script src="js/jquery.js"></script>
+    <script>
+       // .CLICK() METHOD
+       $(function() {
+       $('#first').click(function() {
+            alert('The button one has been clicked!')
+        });
+
+        // .BIND METHOD,passing an event string of 'click'
+        $('#second').bind('click', function() {
+            alert('The button two has been clicked!')
+        });
+        // .on() METHOD
+        $('#third').on('click', function() {
+            alert('The button three has been clicked!')
+        });
+
+        // using a single handler using the .on() method LITERAL NOTATION METHOD
+        // $('body').on({
+        //     click: function(event) {
+        //     alert('The button has been clicked!');
+        //     }
+        // }, 'button');
+     
+        // HEIGHT/WIDTH. 
+
+        $('div').width('400px').height('400px');
+        $('div').css('background-color', 'lightblue').css('text-align', 'center');
+
+        //HANDLING MULTIPLE EVENTS
+        // $('div').on({
+        //     click: function(){
+        //         alert('You clicked the Div Tag!');
+        //     },
+        //     mouseenter: function(){
+        //         alert('You entered the Div Tag!');
+        //     },
+        //     mouseleave: function(){
+        //         alert('You leaved the Div Tag!');
+        //     },
+        // });
+
+        //ADDING A SPAN TAG TO THE WEB PAGE
+            $('.message1').on({
+             click: function(){
+                $('.message1').text('You clicked!');
+             },
+             mouseenter: function(){
+                $('.message2').text('Hello!');
+            },
+             mouseleave: function(){
+                $('.message3').text('Bye!');
+             },
+     });
+        //LINK
+           $('a').click(function(event){
+               event.preventDefault();
+                $('a').css('color', 'red');  
+                alert(event.target.nodeName + ' tag triggered the event!');   
+           });
+        
+         
+
+        //RESIZING THE BROWSER
+        $('div.resize').innerWidth('200px').innerHeight('200px').css('margin-top','10px');
+        $('div.resize').css('background-color', 'lightpink').css('text-align', 'center');
+        $(window).resize(function() {
+            $('div.resize').text($(window).width());
+            $('div.resize').text($(window).height())
+        });
+
+        // FOCUSIN() / FOCUSOUT()
+        $('input:text').css('margin-top','20px').css('margin-bottom', '10px')
+        $('input:text').focusin(function() {
+            $(this).css('background-color', '#D3D3D3');
+        });
+        $('input:text').focusout(function(){
+           $(this).css("background-color", "#FFFFFF");
+         });
+        
+
+      
+        // FORM
+        $('#form').css('margin-top','30px');
+        $('#formname').focus();
+	    $("#form").submit(function(event) {
+			let formValid = true;
+			let emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/;
+			let email = $("#email").val().trim();
+			if (email == "")  { 
+             alert("This field is required.");
+             $('#email').css('border-color', 'red');
+				formValid = false;
+			} else if ( !emailPattern.test(email) ) {
+				alert("Must be a valid email address.");
+           
+				formValid = false;
+			} else {
+				$("#email").next().text(" ");
+                $('#email').css('border-color', 'green');
+			}
+			$("#email").val(email);
+           
+           
+            let uName = $("#formname").val().trim();
+			if (uName == "") {
+				alert("This field is required.");
+                $('#formname').css('border-color', 'red');
+				formValid = false;
+			} else {
+				$("#formname").next().text("");
+                $('#formname').css('border-color', 'green');
+               
+			}
+			$("#formname").val(uName);
+           
+
+            
+            if (formValid == false) {
+				event.preventDefault(); 			
+			}
+
+            
+        });
+
+
+
+    }); 
+ 
+    </script>
+</head>
+<body>
+    <button id ="first">My Button 1</button>
+    <button id ="second">My Button 2</button>
+    <button id ="third">My Button 3</button><br><br>
+    <button id ="fourth">Click Me</button>
+    <button id ="fifth">Click Me</button><br><br>
+    <button id ="fifth">Click Me</button><br><br>
+
+    <div>Div Tag</div>
+    
+    <div class='message1'><p></p><span></span></div>
+    <div class='message2'><span></span></div>
+    <div class='message3'><span></span></div>
+
+    <a href = "http://www.modulemedia.com/">Visit Modulemedia</a>
+
+    <div class ="resize">Another Div Tag</div>
+
+    <input type="text">
+
+    <form id="form" action ="" method="get">
+        <label for="name">Name</label>
+        <input type="name" id="formname" name ="username">
+        <span>*</span><br><br>
+        <label for="email">Email</label>
+        <input type="email" id ="email" name="email">
+        <span>*</span><br><br>
+        <button id="formsubmit">Submit</button>
+        <br>
+    </form>
+
+</body>
+</html>
